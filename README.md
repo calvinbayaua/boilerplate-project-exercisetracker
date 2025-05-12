@@ -10,17 +10,29 @@ This project was built while following [freeCodeCamp's Back End Development and 
 - **Database:** MongoDB
 
 ## 🎯 Features
-- Accepts a `POST` request to `/api/shorturl` with a `url` parameter.
-- Returns a JSON response with:
-  - `original_url`: The original URL provided by the user.
-  - `short_url`: A unique numeric identifier for the shortened link.
-- Redirects users to the original URL when they visit `/api/shorturl/:short_url`.
+- Create a new user with a unique `username`.
+- Log exercises by sending:
+  - `description` (string)
+  - `duration` (number in minutes)
+  - `date` (optional; defaults to current date)
+- Retrieve a user's full exercise log with optional filters:
+  - `from` (start date)
+  - `to` (end date)
+  - `limit` (maximum number of results)
 
 ## 🚀 Usage Examples
 
 ### Request: Create a User
 POST `/api/users` 
-johndoe
+
+**Body:**
+```json
+{
+  "description": "Running",
+  "duration": 30,
+  "date": "2025-05-01"
+}
+```
 **Response:**
 ```json
 {
@@ -31,9 +43,15 @@ johndoe
 
 ### Request: Add an Exercise
 POST `/api/users/:_id/exercises`
+
+**Body:**
+```json
 description: Running
 duration: 30
 date: 2025-05-01
+```
+
+**Response:**
 ```json
 {
   "_id": "65f123abc4567890de123456",
@@ -41,6 +59,30 @@ date: 2025-05-01
   "date": "Thu, 01 May 2025 00:00:00 GMT",
   "duration": 30,
   "description": "Running"
+}
+```
+
+### Request: Get Exercise Log
+GET `/api/users/:_id/logs?from=2025-01-01&to=2025-12-31&limit=2`
+
+**Response:**
+```json
+{
+  "username": "johndoe",
+  "count": 2,
+  "_id": "65f123abc4567890de123456",
+  "log": [
+    {
+      "description": "Running",
+      "duration": 30,
+      "date": "Thu, 01 May 2025 00:00:00 GMT"
+    },
+    {
+      "description": "Cycling",
+      "duration": 45,
+      "date": "Mon, 03 Jun 2025 00:00:00 GMT"
+    }
+  ]
 }
 ```
 
