@@ -46,9 +46,9 @@ POST `/api/users/:_id/exercises`
 
 **Body:**
 ```json
-description: Running
-duration: 30
-date: 2025-05-01
+"description": "Running",
+"duration": 30,
+"date": "2025-05-01"
 ```
 
 **Response:**
